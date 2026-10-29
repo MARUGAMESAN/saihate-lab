@@ -1,0 +1,95 @@
+/* 道東の霧と海：冷たい霧のグレー地、海の青緑を主役、夕暮れの赤茶はカテゴリ色だけに */
+:root {
+  --paper: #eef2f3;
+  --surface: #fbfcfc;
+  --ink: #18252d;
+  --ink-soft: #55656f;
+  --line: #d3dcdf;
+  --sea: #1f6a70;
+  --sea-soft: #dcebea;
+  --dusk: #8c4f3a;
+  --dusk-soft: #f1e3dc;
+  --mist: linear-gradient(180deg, #dde6e9 0%, #eef2f3 100%);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #11191e; --surface: #18232a; --ink: #e5ecef; --ink-soft: #9badb6; --line: #2a3a42;
+    --sea: #7cc3c6; --sea-soft: #1b3437; --dusk: #e3a68c; --dusk-soft: #3a2822;
+    --mist: linear-gradient(180deg, #1a2830 0%, #11191e 100%); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #11191e; --surface: #18232a; --ink: #e5ecef; --ink-soft: #9badb6; --line: #2a3a42;
+  --sea: #7cc3c6; --sea-soft: #1b3437; --dusk: #e3a68c; --dusk-soft: #3a2822;
+  --mist: linear-gradient(180deg, #1a2830 0%, #11191e 100%); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+a { color: var(--sea); }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.site-header { border-bottom: 1px solid var(--line); background: var(--surface); }
+.site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding-top: 14px; padding-bottom: 14px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font-family: "Zen Old Mincho", serif; font-weight: 700; font-size: 1.35rem; color: var(--ink); text-decoration: none; }
+.logo-mark { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 70% 35%, var(--dusk) 0 30%, transparent 31%), var(--sea); }
+.site-header nav { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.88rem; }
+.site-header nav a { color: var(--ink-soft); text-decoration: none; }
+.site-header nav a:hover { color: var(--sea); }
+
+.hero { background: var(--mist); border-bottom: 1px solid var(--line); padding-block: 48px 36px; }
+.hero .wrap { max-width: 760px; }
+.hero-kicker { color: var(--sea); font-weight: 700; font-size: 0.85rem; margin: 0 0 8px; letter-spacing: 0.1em; }
+.hero h1 { text-wrap: balance; font-family: "Zen Old Mincho", serif; font-size: clamp(1.7rem, 6vw, 2.4rem); line-height: 1.5; margin: 0 0 16px; }
+.hero p { color: var(--ink-soft); margin: 0; }
+
+.list { display: grid; gap: 14px; padding: 28px 0 48px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; transition: border-color .15s; }
+.card:hover { border-color: var(--sea); }
+.card a { display: block; padding: 18px 18px 16px; color: inherit; text-decoration: none; }
+.card h2 { font-size: 1.12rem; line-height: 1.6; margin: 6px 0 6px; }
+.excerpt { color: var(--ink-soft); font-size: 0.92rem; margin: 0; line-height: 1.75; }
+
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font-size: 0.8rem; color: var(--ink-soft); }
+.cat { display: inline-block; padding: 1px 10px; border-radius: 999px; font-weight: 500; text-decoration: none; font-size: 0.78rem; }
+.cat-ai { background: var(--sea-soft); color: var(--sea); }
+.cat-local { background: var(--dusk-soft); color: var(--dusk); }
+.pr { display: inline-block; border: 1px solid var(--ink-soft); color: var(--ink-soft); border-radius: 4px; padding: 0 6px; font-size: 0.72rem; line-height: 1.6; }
+
+.page-head { padding: 36px 0 0; }
+.page-head h1 { font-family: "Zen Old Mincho", serif; margin: 0 0 6px; }
+.page-head p { color: var(--ink-soft); margin: 0; }
+
+.post { padding: 36px 0 24px; }
+.post h1 { text-wrap: balance; font-family: "Zen Old Mincho", serif; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.55; margin: 12px 0 20px; }
+.pr-note { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 0.85rem; color: var(--ink-soft); }
+.prose h2 { font-size: 1.3rem; margin: 2.2em 0 0.8em; padding-left: 12px; border-left: 4px solid var(--sea); line-height: 1.5; }
+.prose h3 { font-size: 1.1rem; margin: 1.8em 0 0.6em; }
+.prose p { margin: 0 0 1.4em; }
+.prose img { max-width: 100%; height: auto; border-radius: 8px; }
+.prose blockquote { margin: 1.4em 0; padding: 4px 16px; border-left: 3px solid var(--line); color: var(--ink-soft); }
+.prose pre { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow-x: auto; font-size: 0.85rem; line-height: 1.6; }
+.prose code { font-size: 0.9em; }
+.prose table { border-collapse: collapse; width: 100%; font-size: 0.9rem; display: block; overflow-x: auto; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 6px 10px; }
+
+.related { border-top: 1px solid var(--line); padding: 24px 0 48px; }
+.related h2 { font-size: 1rem; margin: 0 0 12px; }
+.related .card { margin-bottom: 12px; }
+.empty { color: var(--ink-soft); }
+
+.site-footer { border-top: 1px solid var(--line); background: var(--surface); padding: 28px 0; font-size: 0.88rem; color: var(--ink-soft); }
+.site-footer p { margin: 0 0 4px; }
+.foot-name { font-family: "Zen Old Mincho", serif; font-weight: 700; color: var(--ink); font-size: 1.05rem; }
+.small { font-size: 0.78rem; }
+
+a:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
