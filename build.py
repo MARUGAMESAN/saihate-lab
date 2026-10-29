@@ -222,6 +222,15 @@ def main():
         body = f'<article class="post"><h1>{esc(pg["title"])}</h1><div class="prose">{html_body}</div></article>'
         write(f"/{pg['slug']}/", layout(pg["title"], body, pg.get("description"), f"/{pg['slug']}/"))
 
+    # 404
+    nf = """<article class="post notfound">
+  <p class="hero-kicker">404</p>
+  <h1>ページが見つかりませんでした</h1>
+  <div class="prose"><p>お探しのページは、移動したか削除された可能性があります。URLに間違いがないかもご確認ください。</p>
+  <p><a class="cta-btn" href="/">トップページへ</a></p></div>
+</article>"""
+    (DIST / "404.html").write_text(layout("ページが見つかりません", nf, path="/404.html"), encoding="utf-8")
+
     # RSS
     items = "".join(
         f"<item><title>{esc(p['title'])}</title><link>{SITE['url']}/posts/{p['slug']}/</link>"
