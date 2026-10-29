@@ -147,6 +147,37 @@ CONTACT_FORM = """<form class="contact-form" name="contact" method="POST" action
 </form>"""
 
 
+HITOKOTO_LINE = re.compile(r"^-\s*(\d{4}-\d{2}-\d{2})\s+(.+?)\s*$")
+
+
+def load_hitokoto():
+    """hitokoto.md の「- YYYY-MM-DD 本文」行を、新しい順に返す（未来の日付は出さない）"""
+    f = ROOT / "hitokoto.md"
+    if not f.exists():
+        return []
+    items = []
+    for line in f.read_text(encoding="utf-8").splitlines():
+        m = HITOKOTO_LINE.match(line)
+        if m:
+            d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+            if d <= date.today():
+                items.append({"date": d, "text": m.group(2)})
+    items.sort(key=lambda x: x["date"], reverse=True)
+    return items
+
+
+def hitokoto_box(h, preview=False):
+    if not h:
+        if not preview:
+            return ""
+        h = {"date": date.today(), "text": "（プレビュー用の見本）ここに今日の一言が入ります。本番では、一言がまだない日はこの枠ごと表示されません。"}
+    return f"""<aside class="hitokoto" aria-label="今日の一言">
+  <p class="hitokoto-head"><span>今日の一言</span><time>{fmt_date(h['date'])}</time></p>
+  <p class="hitokoto-text">{esc(h['text'])}</p>
+  <a class="hitokoto-more" href="/hitokoto/">これまでの一言</a>
+</aside>"""
+
+
 def card(p):
     cat = CATEGORIES.get(p.get("category"), {"label": ""})
     pr = '<span class="pr">PR</span>' if p.get("pr") else ""
@@ -205,8 +236,17 @@ def main():
   <h1>日本の東の端から、<br>AIで地域を動かす。</h1>
   <p>{SITE['description']}</p>
 </div></section>"""
+    hitokoto = load_hitokoto()
     listing = "".join(card(p) for p in posts) or '<p class="empty">記事を準備中です。</p>'
-    write("/", layout(SITE["name"], f'<section class="list">{listing}</section>', hero=hero))
+    top = hitokoto_box(hitokoto[0] if hitokoto else None, preview=show_drafts)
+    write("/", layout(SITE["name"], f'{top}<section class="list">{listing}</section>', hero=hero))
+
+    # これまでの一言
+    rows = "".join(
+        f'<li><time>{fmt_date(h["date"])}</time><p>{esc(h["text"])}</p></li>' for h in hitokoto
+    ) or '<li class="empty">まだありません。</li>'
+    body = f'<header class="page-head"><h1>今日の一言</h1><p>道東から、その日のひとこと。</p></header><ul class="hitokoto-list">{rows}</ul>'
+    write("/hitokoto/", layout("今日の一言", body, "さいはてラボ運営者による、道東からその日のひとこと。", "/hitokoto/"))
 
     # カテゴリ
     for key, c in CATEGORIES.items():
@@ -245,7 +285,7 @@ def main():
     )
 
     # sitemap
-    urls = ["/", "/about/", "/contact/", "/privacy/"] + [f"/category/{k}/" for k in CATEGORIES] + [f"/posts/{p['slug']}/" for p in posts]
+    urls = ["/", "/about/", "/contact/", "/privacy/", "/hitokoto/"] + [f"/category/{k}/" for k in CATEGORIES] + [f"/posts/{p['slug']}/" for p in posts]
     (DIST / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
         + "".join(f"<url><loc>{SITE['url']}{u}</loc></url>" for u in urls)
