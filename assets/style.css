@@ -93,3 +93,26 @@ a { color: var(--sea); }
 .small { font-size: 0.78rem; }
 
 a:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
+
+/* お問い合わせ */
+.site-header nav a.nav-contact { color: var(--sea); font-weight: 700; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 10px 0 8px !important; }
+.foot-links a { color: var(--ink-soft); }
+.cta { background: var(--sea-soft); border-radius: 12px; padding: 22px 20px; margin: 8px 0 32px; }
+.cta p { margin: 0 0 10px; }
+.cta-kicker { color: var(--sea); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; }
+.cta-title { font-family: "Zen Old Mincho", serif; font-weight: 700; font-size: 1.15rem; line-height: 1.6; text-wrap: balance; }
+.cta-btn { display: inline-block; background: var(--sea); color: var(--surface); border: 0; border-radius: 999px; padding: 10px 26px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+.cta-btn:hover { opacity: 0.9; }
+.contact-form { display: grid; gap: 18px; margin-top: 8px; }
+.contact-form .field { display: grid; gap: 6px; }
+.contact-form label { font-weight: 500; font-size: 0.92rem; }
+.contact-form input, .contact-form select, .contact-form textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+}
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: 2px solid var(--sea); outline-offset: 1px; border-color: var(--sea); }
+.req { font-size: 0.72rem; color: var(--dusk); margin-left: 4px; }
+.form-note { font-size: 0.82rem; color: var(--ink-soft); margin: 0 !important; }
+.contact-form .cta-btn { justify-self: start; }
+.hp { position: absolute; left: -9999px; }

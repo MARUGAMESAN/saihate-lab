@@ -84,7 +84,7 @@ def layout(title, body, desc=None, path="/", hero=""):
 <header class="site-header">
   <div class="wrap">
     <a class="logo" href="/"><span class="logo-mark" aria-hidden="true"></span>{SITE['name']}</a>
-    <nav>{nav}<a href="/about/">このサイトについて</a></nav>
+    <nav>{nav}<a href="/about/">このサイトについて</a><a class="nav-contact" href="/contact/">お問い合わせ</a></nav>
   </div>
 </header>
 {hero}
@@ -95,6 +95,7 @@ def layout(title, body, desc=None, path="/", hero=""):
   <div class="wrap">
     <p class="foot-name">{SITE['name']}</p>
     <p>{SITE['tagline']}</p>
+    <p class="foot-links"><a href="/about/">このサイトについて</a><a href="/contact/">お問い合わせ・お仕事のご相談</a><a href="/privacy/">プライバシーポリシー</a></p>
     <p class="small">当サイトの記事には、アフィリエイトなどの広告を含むものがあります。広告を含む記事には「PR」と表示しています。</p>
     <p class="small">© {date.today().year} {SITE['name']}</p>
   </div>
@@ -102,6 +103,48 @@ def layout(title, body, desc=None, path="/", hero=""):
 </body>
 </html>
 """
+
+
+CTA = """<aside class="cta">
+  <p class="cta-kicker">お仕事のご相談</p>
+  <p class="cta-title">地域の「AIでやってみたい」を、一緒に形にします。</p>
+  <p>PR動画やゲームの制作、ドローン撮影、イベントの企画、AIの使い方の相談など。まずはお気軽にどうぞ。</p>
+  <a class="cta-btn" href="/contact/">相談してみる</a>
+</aside>"""
+
+
+CONTACT_FORM = """<form class="contact-form" name="contact" method="POST" action="/contact/thanks/" data-netlify="true" netlify-honeypot="company-url">
+  <input type="hidden" name="form-name" value="contact">
+  <p class="hp"><label>この欄は空のままにしてください <input name="company-url" id="company-url" tabindex="-1" autocomplete="off"></label></p>
+  <div class="field">
+    <label for="kind">ご用件</label>
+    <select id="kind" name="kind" required>
+      <option value="">選んでください</option>
+      <option>お仕事のご相談（制作・撮影・企画など）</option>
+      <option>取材・掲載のご依頼</option>
+      <option>記事の内容について</option>
+      <option>その他</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="name">お名前 <span class="req">必須</span></label>
+    <input id="name" name="name" type="text" autocomplete="name" required>
+  </div>
+  <div class="field">
+    <label for="org">ご所属（会社・団体名など）</label>
+    <input id="org" name="org" type="text" autocomplete="organization">
+  </div>
+  <div class="field">
+    <label for="email">メールアドレス <span class="req">必須</span></label>
+    <input id="email" name="email" type="email" autocomplete="email" required>
+  </div>
+  <div class="field">
+    <label for="message">内容 <span class="req">必須</span></label>
+    <textarea id="message" name="message" rows="7" required placeholder="例：町のPR動画をAIで作れないか相談したいです。時期は来年の春ごろを考えています。"></textarea>
+  </div>
+  <p class="form-note">送信いただいた内容は、お問い合わせへの返信にのみ使います。詳しくは<a href="/privacy/">プライバシーポリシー</a>をご覧ください。</p>
+  <button class="cta-btn" type="submit">送信する</button>
+</form>"""
 
 
 def card(p):
@@ -152,6 +195,7 @@ def main():
   {pr_note}
   <div class="prose">{p['html']}</div>
 </article>
+{CTA}
 {rel_html}"""
         write(f"/posts/{p['slug']}/", layout(p["title"], body, p.get("description"), f"/posts/{p['slug']}/"))
 
@@ -174,7 +218,8 @@ def main():
     # 固定ページ
     for f in sorted((ROOT / "pages").glob("*.md")):
         pg = load(f)
-        body = f'<article class="post"><h1>{esc(pg["title"])}</h1><div class="prose">{pg["html"]}</div></article>'
+        html_body = pg["html"].replace("<p>{{form}}</p>", CONTACT_FORM)
+        body = f'<article class="post"><h1>{esc(pg["title"])}</h1><div class="prose">{html_body}</div></article>'
         write(f"/{pg['slug']}/", layout(pg["title"], body, pg.get("description"), f"/{pg['slug']}/"))
 
     # RSS
@@ -191,7 +236,7 @@ def main():
     )
 
     # sitemap
-    urls = ["/", "/about/"] + [f"/category/{k}/" for k in CATEGORIES] + [f"/posts/{p['slug']}/" for p in posts]
+    urls = ["/", "/about/", "/contact/", "/privacy/"] + [f"/category/{k}/" for k in CATEGORIES] + [f"/posts/{p['slug']}/" for p in posts]
     (DIST / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
         + "".join(f"<url><loc>{SITE['url']}{u}</loc></url>" for u in urls)
