@@ -67,6 +67,7 @@ def layout(title, body, desc=None, path="/", hero=""):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="sKq2B00lbWADzHnNuMwT0msQ6NL-pyiennjzQA2G17A">
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta property="og:title" content="{esc(full_title)}">
