@@ -46,8 +46,23 @@ def load(path: Path):
     if isinstance(d, str):
         d = datetime.strptime(d, "%Y-%m-%d").date()
     meta["date"] = d or date.today()
-    meta["html"] = markdown.markdown(body, extensions=["extra", "toc", "sane_lists"])
+    meta["html"] = embed_youtube(markdown.markdown(body, extensions=["extra", "toc", "sane_lists"]))
     return meta
+
+
+YOUTUBE = re.compile(r"<p>\{\{youtube:([A-Za-z0-9_-]{6,20})\}\}</p>")
+
+
+def embed_youtube(html_text):
+    """記事中の1行 {{youtube:動画ID}} を、レスポンシブなYouTube埋め込みに置き換える"""
+    return YOUTUBE.sub(
+        lambda m: (
+            '<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/' + m.group(1) + '" '
+            'title="YouTube動画" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" '
+            'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>'
+        ),
+        html_text,
+    )
 
 
 def esc(s):
