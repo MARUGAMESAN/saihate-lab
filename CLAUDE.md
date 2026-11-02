@@ -85,3 +85,6 @@ source: inbox/2026-10-30-hamanaka-fog   # inboxの素材を使ったときだけ
 
 - 北海道・道東を拠点に活動
 - 個人の住所や生活の細かい情報は記事に書かない
+
+## Google Search Console
+- build.py の `<meta name="google-site-verification" ...>` は所有権確認に使っているので削除・変更しない
