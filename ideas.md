@@ -12,3 +12,18 @@
 
 ## 道東ローカル
 - （運営者の写真・メモが届いたらここに追加）
+
+### 運営者のYouTube（ふうせんふぉと）の動画を使えるネタ
+記事には `{{youtube:動画ID}}` で埋め込める。
+- 浜中町の絶景スポットまとめ：霧多布湿原カヌー（1c43LmyAv5E）、霧多布湿原センター（pFDMT9T_ikk）、琵琶瀬木道（U4-XhTbheLM / i1ZvBiYlo1g / JDmd54FSr3c）、琵琶瀬展望台（0PvkKHk7anU / zOSBiQJhKYg）、藻散布沼「思い出のマーニー」の舞台（vPYw-0M7UXs）、涙岬（QXo5uwQyuZY）、霧多布温泉ゆうゆ（fi9Msn_6kl8）、花咲線 茶内駅付近（v6ak4IqlY74）
+- 浜中の昆布漁：散布地区（t7i6I_I6hps / DXE-wSQ4Jr8）、霧多布地区（u8rr2ep9WNA）、昆布乾燥機（OnnOTw0qkk8）
+- 浜中の養殖ウニの餌やり（O9EtT2SVjh0）
+- 酪農王国 浜中町：酪農（ME2ZvoBZN0M）、放牧（IYJTSjBIYqs）、牧草ロール（iaIoPpqDZcY）
+- 魚が遡上できる川 → 牧草 → 生乳 → 海の循環（QnHvLH-KVEc）：取り組みの背景を運営者にインタビューしてから書く
+- 霧多布神社例大祭：4K（DomJHAGLNHw）、宵宮360度（PY6321rMdcc）。来年の例大祭の前に出す
+- ✅ はまなか盛り上げ隊花火大会（iAny5XtDiaI）：11/3の記事に埋め込み済み
+
+### AI×撮影機材
+- Osmo Nano（bVrMd81bU58）、Osmo 360（5uUM5krP6_0）の使用感。機材のアフィリエイトと相性がよい
+
+（福島・角館・千里浜などの道東以外の動画は、さいはてラボでは使わない）
