@@ -130,38 +130,11 @@ CTA = """<aside class="cta">
 </aside>"""
 
 
-CONTACT_FORM = """<form class="contact-form" name="contact" method="POST" action="/contact/thanks/" data-netlify="true" netlify-honeypot="company-url">
-  <input type="hidden" name="form-name" value="contact">
-  <p class="hp"><label>この欄は空のままにしてください <input name="company-url" id="company-url" tabindex="-1" autocomplete="off"></label></p>
-  <div class="field">
-    <label for="kind">ご用件</label>
-    <select id="kind" name="kind" required>
-      <option value="">選んでください</option>
-      <option>お仕事のご相談（制作・撮影・企画など）</option>
-      <option>取材・掲載のご依頼</option>
-      <option>記事の内容について</option>
-      <option>その他</option>
-    </select>
-  </div>
-  <div class="field">
-    <label for="name">お名前 <span class="req">必須</span></label>
-    <input id="name" name="name" type="text" autocomplete="name" required>
-  </div>
-  <div class="field">
-    <label for="org">ご所属（会社・団体名など）</label>
-    <input id="org" name="org" type="text" autocomplete="organization">
-  </div>
-  <div class="field">
-    <label for="email">メールアドレス <span class="req">必須</span></label>
-    <input id="email" name="email" type="email" autocomplete="email" required>
-  </div>
-  <div class="field">
-    <label for="message">内容 <span class="req">必須</span></label>
-    <textarea id="message" name="message" rows="7" required placeholder="例：町のPR動画をAIで作れないか相談したいです。時期は来年の春ごろを考えています。"></textarea>
-  </div>
-  <p class="form-note">送信いただいた内容は、お問い合わせへの返信にのみ使います。詳しくは<a href="/privacy/">プライバシーポリシー</a>をご覧ください。</p>
-  <button class="cta-btn" type="submit">送信する</button>
-</form>"""
+CONTACT_FORM_URL = "https://forms.gle/fTb8LUaDSe9rGQH8A"
+
+# お問い合わせはGoogleフォームで受け付ける（Cloudflare PagesではNetlify Formsが使えないため）
+CONTACT_FORM = f"""<p class="contact-link"><a class="cta-btn" href="{CONTACT_FORM_URL}" target="_blank" rel="noopener">お問い合わせフォームを開く</a></p>
+<p class="contact-note">Googleフォームが別のタブで開きます。Googleアカウントがなくても送信できます。</p>"""
 
 
 def card(p):

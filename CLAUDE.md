@@ -16,7 +16,7 @@
   - 1件の素材が短くて1本にならないときは、近い時期・近い話題の素材を2〜3件まとめて1本にしてよい
 - `build.py`：静的サイトのビルド。`python3 build.py` で `dist/` に出力。`--drafts` で下書きも含めてプレビュー
 - Cloudflare Pages（https://saihate-lab.pages.dev）が `main` ブランチを自動でビルド・公開する（2026-11-04 にNetlifyから移行。Netlifyの netlify.toml は使っていない）
-- お問い合わせフォームはNetlify Formsに依存していたため、Cloudflareでは動かない。代わりの仕組みを決めるまで要注意
+- お問い合わせはGoogleフォーム（build.py の CONTACT_FORM_URL）で受け付ける。Netlify Formsは使えない
 
 ## 記事のfrontmatter
 
