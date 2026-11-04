@@ -6,6 +6,7 @@ posts/*.md と pages/*.md を読み込み、dist/ にHTMLを書き出す。
 - 依存: Markdown, PyYAML（requirements.txt）
 """
 import html
+import os
 import re
 import shutil
 import sys
@@ -22,7 +23,7 @@ SITE = {
     "name": "さいはてラボ",
     "tagline": "道東発、ローカル×AI通信",
     "description": "北海道・道東の現場から、AIで地域を動かす実践記とローカル情報を届けるメディア。",
-    "url": "https://saihate-lab.netlify.app",
+    "url": "https://saihate-lab.pages.dev",
 }
 
 CATEGORIES = {
@@ -189,7 +190,9 @@ def main():
 
     posts = [load(p) for p in sorted((ROOT / "posts").glob("*.md"))]
     # --drafts を付けると下書きも含めてプレビュー用にビルドする（本番では付けない）
-    show_drafts = "--drafts" in sys.argv
+    # Cloudflare Pages では main 以外のブランチ（draft-YYYYMMDD）のプレビューで下書きも表示する
+    cf_branch = os.environ.get("CF_PAGES_BRANCH")
+    show_drafts = "--drafts" in sys.argv or bool(cf_branch and cf_branch != "main")
     posts = [p for p in posts if p.get("status") == "published" or (show_drafts and p.get("status") == "draft")]
     posts.sort(key=lambda p: p["date"], reverse=True)
 

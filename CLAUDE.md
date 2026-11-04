@@ -15,7 +15,8 @@
   - 素材を使って記事を書いたら、記事のfrontmatterに `source: inbox/フォルダ名` を書く。`main` と未公開の `draft-` ブランチの記事に `source` で使われている素材は「使用済み」として扱い、二重に記事にしない
   - 1件の素材が短くて1本にならないときは、近い時期・近い話題の素材を2〜3件まとめて1本にしてよい
 - `build.py`：静的サイトのビルド。`python3 build.py` で `dist/` に出力。`--drafts` で下書きも含めてプレビュー
-- Netlifyが `main` ブランチを自動でビルド・公開する
+- Cloudflare Pages（https://saihate-lab.pages.dev）が `main` ブランチを自動でビルド・公開する（2026-11-04 にNetlifyから移行。Netlifyの netlify.toml は使っていない）
+- お問い合わせフォームはNetlify Formsに依存していたため、Cloudflareでは動かない。代わりの仕組みを決めるまで要注意
 
 ## 記事のfrontmatter
 
@@ -40,7 +41,7 @@ source: inbox/2026-10-30-hamanaka-fog   # inboxの素材を使ったときだけ
    - **素材が足りなくても、黙って休まない**。書ける範囲で下書きを作り、体験が必要な部分は「【要追記：〇〇】」と書いて、運営者への質問として送る。状態は「素材待ち」にする
 2. 書き始める前に、予定表の今日の行を「下書き」にして `main` にコミットする
 3. 記事を `status: published` で書き、`draft-YYYYMMDD` という名前のブランチ（例：`draft-20261030`）にコミットしてプッシュする。`main` には直接プッシュしない
-   - Netlifyがブランチごとにプレビューを自動で作る：`https://draft-YYYYMMDD--saihate-lab.netlify.app/`
+   - Cloudflare Pagesがブランチごとにプレビューを自動で作る：`https://draft-YYYYMMDD.saihate-lab.pages.dev/`（下書きも表示される）
    - プッシュの前に `python3 build.py` が通ることを確認する
 4. 運営者に、タイトル・3行の要約・プレビューのURL・確認してほしい点（事実の確認が必要な箇所など）を `SendUserMessage` で知らせる
 5. 運営者がOKと言ったら、そのブランチを `main` にマージしてプッシュする（`git checkout main && git pull && git merge --squash draft-YYYYMMDD && git commit && git push origin main`）。ブランチの削除はできない設定なので、残したままでよい。マージ＝公開。同じコミットで予定表のその行を「公開済み」にする。修正指示があれば同じブランチで直して、もう一度プレビューを知らせる
