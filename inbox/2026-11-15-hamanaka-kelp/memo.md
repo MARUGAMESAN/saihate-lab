@@ -39,3 +39,11 @@
 
 （テキストで受け取ったURL）https://www.youtube.com/@HAMANAKA-TOWN%E5%8C%97%E6%B5%B7%E9%81%93%E6%B5%9C%E4%B8%AD
 ※チャンネルのURLで、どの動画かの指定はなし
+
+**追加（2026-11-15 テキスト）**
+
+浜中の公式動画これだ
+これは昆布漁の動画
+https://youtu.be/tB2UcOmEYZE?si=ZIxJsB2FrD6OJbrr
+
+あと散布のDXE-wSQ4Jr8は使わないで
